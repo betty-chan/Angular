@@ -1,2 +1,6 @@
 # AngularJs
-Angular知识集
+
+##Angular插件
+ui-router
+angular-translate
+[Angular+bootstrap](http://mgcrea.github.io/angular-strap/)
