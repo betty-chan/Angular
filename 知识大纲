@@ -152,6 +152,3 @@ ng-model 指令也可以：
 为应用程序数据提供状态（invalid、dirty、touched、error）。
 为 HTML 元素提供 CSS 类required
 ng-model 指令根据表单域的状态添加/移除以下类：ng-empty、ng-not-empty、ng-touched、ng-untouched、ng-valid、ng-invalid、ng-dirty、ng-pending、ng-pristine
-
-错误笔记
-1.webpack指令中controller需要注入，不轻易使用
