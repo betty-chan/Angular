@@ -98,7 +98,7 @@ Angular服务
 $location：返回当前页面的 URL 地址，$location.search()修改参数
 $http：服务向服务器发送请求，应用响应服务器传送过来的数据 方法：Method(get/post)参数：url其他}ajax：url、其他、method
 $httpProvider：
-$timeout：var a =$timeout(function(){})
+$timeout：var a =$timeout(function(){}),$timeout.cancel(a)
 $interval：var a = $interval(function(){}，间隔时间，次数).then()   clearInterval(a)
 $rootScope：根作用域：用 rootscope 定义的值，可以在各个 controller 中使用。
 $emit只能向parent controller传递event与data
