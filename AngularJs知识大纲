@@ -13,6 +13,7 @@ $scope.$watch(watchExpression, [listener], [objectEquality])：
 当第三个参数是false时，其实watch函数监视的是数组的地址，而数组的内容的变化不会影响数组地址的变化，所以watch函数监视的是数组的地址，而数组的内容的变化不会影响数组地址的变化，所以watch函数失灵了。
 取消监听var XXX=$watch; XXX();
 AngularJS 动画：需要引入 angular-animate.min.js 库，还需在应用中使用模型 ngAnimate。
+AngularJs生命周期：编译compile和链接Link
 
 Angular对象
 angular.isObject
@@ -29,10 +30,11 @@ angular.element(dom元素对象) : 将dom对象/html标签包装为jQuery对象�
 2.
 过滤器	描述
 currency	格式化数字为货币格式。
-filter输入过滤	从数组项中选择一个子集。Filter:模型
+Filter:输入过滤	从数组项中选择一个子集。Filter:模型
 lowercase	格式化字符串为小写。
 orderBy	根据某个表达式排列数组。orderBy：''
 uppercase	格式化字符串为大写。
+limitTo:数量	
 3.自定义
 
 指令
@@ -40,14 +42,13 @@ uppercase	格式化字符串为大写。
 	• ng-include：
 	• ng-init：初始化值
 	• ng-repeat：对集合和数组中重复，相当于foreach.
-	如果ng-repeat绑定的数组中元素有重复，会报错，可使用track by $index（索引）或者item.id（自己的id号）$parent
-	repeat-finish
+	如果ng-repeat绑定的数组中元素有重复，会报错，可使用track by $index（索引）或者item.id（自己的id号）；repeat-finish
 	• ng-repeat-start和ng-repeat-end
 	• ng-option：v.value as v.name for v in data
 	支持orderBy过滤器
 	group by
 	disable when color.disabled
-	• ng-if:引起作用域问题parent、ng-if和ng-click使用导致失效
+	• ng-if:引起作用域问题$parent、ng-if和ng-click使用导致失效
 	• ng-show/ng-hide：导致校验
 	• ng-style
 	• ng-class ：
@@ -71,7 +72,7 @@ uppercase	格式化字符串为大写。
 	1）false（默认）：模板会被当作子元素插入到调用此指令的元素内部
 	2）true：将会用模板替换指令所在的DOM；
 	• priority：提示编译器执行的顺序优先级，number（默认为0）
-	• link：负责操作DOM元素，是定义指令和作用域连接函数：参数为scope、element、attr、controller
+	• link：负责操作DOM元素，是定义指令和作用域连接函数：参数为scope、element、attr、controller。相当于$postLink,有别于preLink
 	• compile：用来在link函数运行之前进行一些DOM转化，参数：tElement – 指令绑定的元素、attrs。什么时候使用compile?大多数时候，你仅仅只需要编写link函数。这是因为大部分指令都只关心与注册事件监听器，监视器，更新DOM等等，它们在link函数中即可完成。像是ng-repeat这样的指令，需要多次克隆并重复DOM元素，就需要在link函数运行之前使用compile函数。
 	• controller：定义与其他指令进行交互的接口函数，指令控制器函数。参数有$scope,$element, $attrs, $transclude
 	• require：需要其他指令的控制器require字段，可为自定义指令或内置指令如ng-model等。设置查找控制器时的行为：
@@ -98,14 +99,15 @@ Angular服务
 $location：返回当前页面的 URL 地址，$location.search()修改参数
 $http：服务向服务器发送请求，应用响应服务器传送过来的数据 方法：Method(get/post)参数：url其他}ajax：url、其他、method
 $httpProvider：
-$timeout：var a =$timeout(function(){}),$timeout.cancel(a)
+$timeout：var a =$timeout(function(){})，$timeout.cancel(a)
 $interval：var a = $interval(function(){}，间隔时间，次数).then()   clearInterval(a)
 $rootScope：根作用域：用 rootscope 定义的值，可以在各个 controller 中使用。
+$log
 $emit只能向parent controller传递event与data
 $broadcast只能向child controller传递event与data
 $on用于接收event与data
 $compile：手动编译
-$q 异步同步处理
+$q 异步处理
 （1）$q.deffer()使用：deferred.notify、Deffer.resolve&deffer.reject、Deffer.promise、Promise.then/catch/finally  
 （2）$q.all使用：
 $q.when一个 Promise 就是一个代表了异步操作最终完成或者失败的对象
@@ -152,3 +154,13 @@ ng-model 指令也可以：
 为应用程序数据提供状态（invalid、dirty、touched、error）。
 为 HTML 元素提供 CSS 类required
 ng-model 指令根据表单域的状态添加/移除以下类：ng-empty、ng-not-empty、ng-touched、ng-untouched、ng-valid、ng-invalid、ng-dirty、ng-pending、ng-pristine
+
+错误笔记
+	1. webpack指令中controller需要注入，不轻易使用
+	2. ng-if、ng-switch和ng-repeat会引起作用域问题，可使用$parent处理
+	3. ng-if和ng-click使用导致失效
+	4. $rootScope方法调用先判有值
+规范
+	1. 当一职责：200L
+	2. 隐藏细节：function置后
+	3. 注释：jsdoc
