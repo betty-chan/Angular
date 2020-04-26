@@ -1,0 +1,122 @@
+TypeStript
+	1. 类型声明
+	2. 模板字符串
+	3. 定义数组： 元素类型[]，Array<元素类型>
+	4. 元组Tuple：允许表示一个已知元素数量和类型的数组，各元素的类型不必相同。
+	5. 枚举enum：像C#等其它语言一样，使用枚举类型可以为一组数值赋予友好的名字。
+	6. 任意类型any
+	7. 无类型void
+	8. 在TypeScript中，一个类只有一个构造函数。在ES6里一个类可以有不同参数的构造函数重载。
+	9. 类型注解
+
+模板语法
+{{value}}显示值
+*ngIf
+*ngFor
+(click)=响应事件
+#绑定变量
+[name]=?同名或指定输入属性
+[(ngModel)]
+
+过滤器
+Json
+
+指令
+1.属性指令：
+修饰指令
+结构指令
+2.组件指令：
+@Component
+export interface Directive {
+   selector?: string;  // 用于定义组件在HTML代码中匹配的标签
+   inputs?: string[];  // 指令的输入属性
+   outputs?: string[];  // 指令的输出属性
+   host?: {[key: string]: string};  // 绑定宿主的属性、事件等
+   providers?: Provider[];  // 设置指令及其子指令可以用的服务
+   exportAs?: string;  // 导出指令，使得可以在模板中调用
+   queries?: {[key: string]: any};  // 设置指令的查询条件
+}
+export interface Component extends Directive {
+   template/templateUrl?: string;  
+   styles/styleUrls?: string[]; 
+   changeDetection?: ChangeDetectionStrategy;  // 指定组件使用的变化检测策略
+   viewProviders?: Provider[];     // 设置组件及其子组件(不含ContentChildren)可以用的服务
+   moduleId?: string;  // 包含该组件模块的 id，它被用于解析 模版和样式的相对路径
+   animations?: any[];  // 设置组件相关动画
+   encapsulation?: ViewEncapsulation;  // 设置组件视图包装选项
+   interpolation?: [string, string];  // 设置默认的插值运算符，默认是"{{"和"}}"
+   entryComponents?: Array<Type<any>|any[]>;  // 设置需要被提前编译的组件
+}
+
+表单模块
+模板驱动式表单和响应式表单
+HTTP模块
+路由模块
+1.@Component注解
+Inputs
+outputs
+
+3.控制器
+@HostListener()可以监听宿主元素上的事件
+@HostBinding()可以为指令的宿主元素添加类、样式、属性等
+@Input是用来定义输入属性，不同名@Input('firstname') name;
+@Attribute获取指令宿主元素的属性值
+@ViewChild获取视图中定义的模板元素
+
+模板字符串：反引号
+触发自定义事件：EventEmitte.emit
+
+*案例
+import {FormBuilder,FormGroup,Validators} from '@angular/forms';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import {RouterModule,Routes} from '@angular/router';
+import { Directive, HostBinding, Input } from '@angular/core';——注解类
+
+1. @Directive({
+2. selector: '[greet]'
+3. })
+4. export class GreetDirective {
+5. @Input() greet: string;
+6. @HostBinding() get innerText() {
+7. return this.greet;
+8. }
+9. }
+10. 模板元素
+<ng-template #tpl>
+      Hello, Semlinker!
+</ng-template>
+
+
+模块
+案例
+@NgModule({
+declarations: [
+InventoryApp,
+ProductImage,
+ProductDepartment,
+PriceDisplay,
+ProductRow,
+ProductsList
+],
+imports: [ BrowserModule ],
+bootstrap: [ InventoryApp ]
+})
+class InventoryAppModule {}
+
+􀂉 ngModel
+􀂉 NgForm
+ReactiveFormsModule提供
+􀂉 formControl
+􀂉 ngFormGroup
+
+◆例子:
+import { Component } from '@angular/core';
+@Component({
+  selector: 'my-app', 
+  template: `<h1>Hello {{name}}</h1>`,//templateUrl
+})
+//组件类
+export class UserComponent {
+    constructor(){}//构造函数
+
+}
